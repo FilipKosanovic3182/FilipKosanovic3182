@@ -1,0 +1,37 @@
+html{
+    height: 100%;
+    background-color: lightgrey;
+}
+body{
+    height: 100%;
+    margin: 0%;
+}
+header{
+    background-color: grey;
+    color: white;
+}
+header h1{
+    text-align: center;
+}
+.leviDeoHeadera{
+    background-color: grey;
+    color: white;
+}
+.leviDeoHeadera ul{
+    display: inline;
+}
+
+.desniDeoHeadera{
+    right: 0;
+    background-color: grey;
+    color: white;
+}
+.desniDeoHeadera ul{
+    display: inline;
+}
+
+
+.centralniDeo h1{
+    color: red;
+    
+}

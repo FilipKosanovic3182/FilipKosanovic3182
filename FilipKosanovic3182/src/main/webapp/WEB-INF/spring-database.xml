@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+        http://www.springframework.org/schema/data/jpa 
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+    <context:annotation-config/> <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" /> 
+    <property name="url" value="jdbc:mysql://localhost:3306/veb_sis2" /> 
+    <property name="username" value="root" /> 
+    <property name="password" value="" /> 
+    </bean>
+<!-- Services --> 
+    <bean name="brandService" class="com.it355.filip.service.impl.BrandServiceImpl" />
+    <bean name="displayService" class="com.it355.filip.service.impl.DisplayServiceImpl"/>
+    <bean name="picturesService" class="com.it355.filip.service.impl.PicturesServiceImpl" />
+    <bean name="strapService" class="com.it355.filip.service.impl.StrapServiceImpl"/>
+    <bean name="usersService" class="com.it355.filip.service.impl.UsersServiceImpl" />
+    <bean name="watchService" class="com.it355.filip.service.impl.WatchServiceImpl"/>
+    <!-- Dao -->
+    <bean name="brandDao" class="com.it355.filip.dao.impl.BrandDaoImpl"> 
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    <bean name="displayDao" class="com.it355.filip.dao.impl.DisplayDaoImpl"> 
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    <bean name="picturesDao" class="com.it355.filip.dao.impl.PicturesDaoImpl"> 
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    <bean name="strapDao" class="com.it355.filip.dao.impl.StrapDaoImpl"> 
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    <bean name="usersDao" class="com.it355.filip.dao.impl.UsersDaoImpl"> 
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    <bean name="watchDao" class="com.it355.filip.dao.impl.WatchDaoImpl"> 
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+</beans>
