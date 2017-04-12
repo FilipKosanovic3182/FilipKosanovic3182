@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface DisplayDao {
     public int getCount();
-    public List<Display> getDisplayByID(int id);
+    public Display getDisplayByID(int id);
     public List<Display> getAllDisplays();
     public boolean addDisplay(Display display);
-    public boolean removeDisplay(String name);
+    public boolean removeDisplay(int id);
     public boolean updateDisplay(Display display);
 }

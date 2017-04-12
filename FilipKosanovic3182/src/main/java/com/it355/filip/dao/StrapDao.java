@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface StrapDao {
     public int getCount();
-    public List<Strap> getStrapByID(int id);
+    public Strap getStrapByID(int id);
     public List<Strap> getAllStraps();
     public boolean addStrap(Strap strap);
-    public boolean removeStrap(String name);
+    public boolean removeStrap(int id);
     public boolean updateStrap(Strap strap);
 }

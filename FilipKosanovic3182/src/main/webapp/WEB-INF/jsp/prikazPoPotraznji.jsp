@@ -4,9 +4,13 @@
     Author     : Filip Wolve
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>
 <!DOCTYPE html>
+<% List objekti = (List)session.getAttribute("objekti");
+   request.setAttribute("objekti", objekti);
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,14 +19,16 @@
     <body>
         <jsp:include page="header.jsp" />
         <table>
-            <c:forEach items="${objekti}" var="post">
+            <c:forEach items="${objekti}" var="objekat">
                 <a href="/criterium/${post}">
                     <tr>
                         <td><img src="${post.picture}" height="100px" /><c:out value="${post.name}"/></td>
                     </tr>
                     <tr>
                         <td>${objekti}</td>
+                        
                     </tr>
+                    <tr><td>da${objekat.name}</td></tr>
                 </a>
             </c:forEach>
         </table>

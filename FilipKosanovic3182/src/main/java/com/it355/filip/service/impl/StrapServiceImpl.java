@@ -9,45 +9,59 @@ import com.it355.filip.dao.StrapDao;
 import com.it355.filip.model.Strap;
 import com.it355.filip.service.StrapService;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Filip Wolve
  */
+@Service
 public class StrapServiceImpl implements StrapService{
 
-    @Autowired
-    StrapDao strapDao;
+    private StrapDao strapDao;
+    
+    public void setStrapDao(StrapDao strapDao) {
+        this.strapDao = strapDao;
+    }
+    /*@Autowired
+    StrapDao strapDao;*/
     
     @Override
+    @Transactional
     public int getCount() {
-        return strapDao.getCount();
+        return this.strapDao.getCount();
     }
 
     @Override
-    public List<Strap> getStrapByID(int id) {
-        return strapDao.getStrapByID(id);
+    @Transactional
+    public Strap getStrapByID(int id) {
+        return this.strapDao.getStrapByID(id);
     }
 
     @Override
+    @Transactional
     public List<Strap> getAllStraps() {
-        return strapDao.getAllStraps();
+        return this.strapDao.getAllStraps();
     }
 
     @Override
+    @Transactional
     public boolean addStrap(Strap strap) {
-        return strapDao.addStrap(strap);
+        return this.strapDao.addStrap(strap);
     }
 
     @Override
-    public boolean removeStrap(String name) {
-        return strapDao.removeStrap(name);
+    @Transactional
+    public boolean removeStrap(int id) {
+        return this.strapDao.removeStrap(id);
     }
 
     @Override
+    @Transactional
     public boolean updateStrap(Strap strap) {
-        return strapDao.updateStrap(strap);
+        return this.strapDao.updateStrap(strap);
     }
     
 }

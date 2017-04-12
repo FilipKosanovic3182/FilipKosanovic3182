@@ -9,43 +9,59 @@ import com.it355.filip.dao.BrandDao;
 import com.it355.filip.model.Brand;
 import com.it355.filip.service.BrandService;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Filip Wolve
  */
-public class BrandServiceImpl implements BrandService{
-    @Autowired
-    BrandDao brandDao;
+@Service
+public class BrandServiceImpl implements BrandService {
+
+    private BrandDao brandDao;
+
+    public void setBrandDAO(BrandDao brandDao) {
+        this.brandDao = brandDao;
+    }
+
+    //@Autowired
+    //BrandDao brandDao;
     @Override
+    @Transactional
     public int getCount() {
-        return brandDao.getCount();
+        return this.brandDao.getCount();
     }
 
     @Override
-    public List<Brand> getBrandByID(int id) {
-        return brandDao.getBrandByID(id);
+    @Transactional
+    public Brand getBrandByID(int id) {
+        return this.brandDao.getBrandByID(id);
     }
 
     @Override
+    @Transactional
     public List<Brand> getAllBrands() {
-        return brandDao.getAllBrands();
+        return this.brandDao.getAllBrands();
     }
 
     @Override
+    @Transactional
     public boolean addBrand(Brand brand) {
-        return brandDao.addBrand(brand);
+        return this.brandDao.addBrand(brand);
     }
 
     @Override
-    public boolean removeBrand(String name) {
-        return brandDao.removeBrand(name);
+    @Transactional
+    public boolean removeBrand(int id) {
+        return this.brandDao.removeBrand(id);
     }
 
     @Override
+    @Transactional
     public boolean updateBrand(Brand brand) {
-        return brandDao.updateBrand(brand);
+        return this.brandDao.updateBrand(brand);
     }
-    
+
 }

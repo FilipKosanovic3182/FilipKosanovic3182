@@ -6,13 +6,25 @@
 package com.it355.filip.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Filip Wolve
  */
+@Entity
+@Table(name="watch")
 @SuppressWarnings("serial")
 public class Watch implements Serializable{
+    @Id
+    @Column(name="watch_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    
     private int watch_ID;
     private int brand_ID;
     private String gender;

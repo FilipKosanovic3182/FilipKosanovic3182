@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface BrandDao {
     public int getCount();
-    public List<Brand> getBrandByID(int id);
+    public Brand getBrandByID(int id);
     public List<Brand> getAllBrands();
     public boolean addBrand(Brand brand);
-    public boolean removeBrand(String name);
+    public boolean removeBrand(int id);
     public boolean updateBrand(Brand brand);
 }

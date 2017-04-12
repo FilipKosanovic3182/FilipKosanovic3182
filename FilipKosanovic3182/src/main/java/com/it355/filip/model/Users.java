@@ -6,13 +6,25 @@
 package com.it355.filip.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Filip Wolve
  */
+@Entity
+@Table(name="account")
 @SuppressWarnings("serial")
 public class Users implements Serializable{
+    @Id
+    @Column(name="account_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    
     private int account_ID;
     private String username;
     private String password;

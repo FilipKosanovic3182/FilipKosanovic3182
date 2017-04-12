@@ -10,73 +10,116 @@ import com.it355.filip.mapper.DisplayMapper;
 import com.it355.filip.model.Display;
 import java.util.List;
 import javax.sql.DataSource;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Filip Wolve
  */
-public class DisplayDaoImpl implements DisplayDao{
+@Repository
+public class DisplayDaoImpl implements DisplayDao {
 
-    private JdbcTemplate jdbcTemplate; 
-    @SuppressWarnings("unused") 
+    private SessionFactory sessionFactory;
+
+    public void setSessionFactory(SessionFactory sf) {
+        this.sessionFactory = sf;
+    }
+
+    private JdbcTemplate jdbcTemplate;
+    @SuppressWarnings("unused")
     private DataSource dataSource;
-    
+
     public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource; 
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-    
+
     @Override
     public int getCount() {
-        String sql = "SELECT COUNT(*) FROM display"; 
-        int count = jdbcTemplate.queryForObject(sql, Integer.class); 
-        return count;     
+        Session session = this.sessionFactory.getCurrentSession();
+        return (int) (Number) session.createCriteria("display").setProjection(Projections.rowCount()).uniqueResult();
+        
+        /*String sql = "SELECT COUNT(*) FROM display";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count;*/
     }
 
     @Override
-    public List<Display> getDisplayByID(int id) {
-        String sql= "SELECT * FROM display WHERE brand_ID =" + id; 
-        List<Display> displays= jdbcTemplate.query(sql, new DisplayMapper()); 
-        return displays;    
+    public Display getDisplayByID(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Display display = (Display) session.load(Display.class, new Integer(id));
+        //logger.info("Person loaded successfully, Person details=" + p);
+        return display;
+        
+        
+        /*String sql = "SELECT * FROM display WHERE brand_ID =" + id;
+        List<Display> displays = jdbcTemplate.query(sql, new DisplayMapper());
+        return displays;*/
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Display> getAllDisplays() {
-        String sql= "SELECT * FROM display"; 
-        List<Display> displays= jdbcTemplate.query(sql, new DisplayMapper()); 
-        return displays;    
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Display> displays = session.createQuery("from display").list();
+        /*for (Brand b : brands) {
+            logger.info("Person List::" + p);
+        }*/
+        return displays;/*
+        
+        /*String sql = "SELECT * FROM display";
+        List<Display> displays = jdbcTemplate.query(sql, new DisplayMapper());
+        return displays;*/
     }
 
     @Override
     public boolean addDisplay(Display display) {
-        String sql = "INSERT INTO display " + "(display_ID, name, description, picture) VALUES ( ?, ?, ?, ?)"; 
-        jdbcTemplate.update(sql, new Object[] {
-            display.getDisplayID(), 
-            display.getName(), 
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(display);
+        return true;
+        
+        /*String sql = "INSERT INTO display " + "(display_ID, name, description, picture) VALUES ( ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, new Object[]{
+            display.getDisplayID(),
+            display.getName(),
             display.getDescription(),
             display.getPicture()
         });
-        return true; 
+        return true;*/
     }
 
     @Override
-    public boolean removeDisplay(String name) {
-        String sql = "DELETE FROM display WHERE name= " + name;
+    public boolean removeDisplay(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Display b = (Display) session.load(Display.class, new Integer(id));
+        if (null != b) {
+            session.delete(b);
+            return true;
+        } else {
+            return false;
+        }
+        /*String sql = "DELETE FROM display WHERE name= " + name;
         jdbcTemplate.update(sql);
-        return true;
+        return true;*/
     }
 
     @Override
     public boolean updateDisplay(Display display) {
-        String sql = "UPDATE display set name = ?, description =?, picture =? where display_ID = ?";
-        jdbcTemplate.update(sql, new Object[] {
-            display.getName(), 
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(display);
+        return true;
+        /*String sql = "UPDATE display set name = ?, description =?, picture =? where display_ID = ?";
+        jdbcTemplate.update(sql, new Object[]{
+            display.getName(),
             display.getDescription(),
             display.getPicture(),
             display.getDisplayID()
         });
-        return true; 
+        return true;*/
     }
-    
+
 }

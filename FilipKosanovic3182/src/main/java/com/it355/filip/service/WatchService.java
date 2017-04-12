@@ -14,10 +14,10 @@ import java.util.List;
  */
 public interface WatchService {
     public int getCount();
-    public List<Watch> getWatchByID(int id);
+    public Watch getWatchByID(int id);
     public List<Watch> getAllWatches();
     public boolean addWatch(Watch watch);
-    public boolean removeWatch(String model);
+    public boolean removeWatch(int id);
     public boolean updateWatch(Watch watch);
     public List<Watch> getWatchesOnOffer();
     public List<Watch> getWatchesWithBrand(int brandID);

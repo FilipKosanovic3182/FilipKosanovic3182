@@ -6,13 +6,24 @@
 package com.it355.filip.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Filip Wolve
  */
+@Entity
+@Table(name="pictures")
 @SuppressWarnings("serial") 
 public class Pictures implements Serializable{
+    @Id
+    @Column(name="picture_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int picture_ID;
     private int watch_ID;
     private String path;

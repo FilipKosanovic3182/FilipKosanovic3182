@@ -9,45 +9,59 @@ import com.it355.filip.dao.DisplayDao;
 import com.it355.filip.model.Display;
 import com.it355.filip.service.DisplayService;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Filip Wolve
  */
+@Service
 public class DisplayServiceImpl implements DisplayService{
 
-    @Autowired
-    DisplayDao displayDao;
+    private DisplayDao displayDao;
+
+    public void setDisplayDAO(DisplayDao displayDao) {
+        this.displayDao = displayDao;
+    }
+    /*@Autowired
+    DisplayDao displayDao;*/
     
     @Override
+    @Transactional
     public int getCount() {
-        return displayDao.getCount();
+        return this.displayDao.getCount();
     }
 
     @Override
-    public List<Display> getDisplayByID(int id) {
-        return displayDao.getDisplayByID(id);
+    @Transactional
+    public Display getDisplayByID(int id) {
+        return this.displayDao.getDisplayByID(id);
     }
 
     @Override
+    @Transactional
     public List<Display> getAllDisplays() {
-        return displayDao.getAllDisplays();
+        return this.displayDao.getAllDisplays();
     }
 
     @Override
+    @Transactional
     public boolean addDisplay(Display display) {
-        return displayDao.addDisplay(display);
+        return this.displayDao.addDisplay(display);
     }
 
     @Override
-    public boolean removeDisplay(String name) {
-        return displayDao.removeDisplay(name);
+    @Transactional
+    public boolean removeDisplay(int id) {
+        return this.displayDao.removeDisplay(id);
     }
 
     @Override
+    @Transactional
     public boolean updateDisplay(Display display) {
-        return displayDao.updateDisplay(display);
+        return this.displayDao.updateDisplay(display);
     }
     
 }

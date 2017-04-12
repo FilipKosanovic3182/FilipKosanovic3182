@@ -13,10 +13,17 @@ import java.util.List;
  * @author Filip Wolve
  */
 public interface BrandService {
-    public int getCount();
-    public List<Brand> getBrandByID(int id);
-    public List<Brand> getAllBrands();
-    public boolean addBrand(Brand brand);
-    public boolean removeBrand(String name);
-    public boolean updateBrand(Brand brand);
+
+        public int getCount();
+
+        public Brand getBrandByID(int id);
+
+        public List<Brand> getAllBrands();
+
+        public boolean addBrand(Brand brand);
+
+        public boolean removeBrand(int id);
+
+        public boolean updateBrand(Brand brand);
+    
 }

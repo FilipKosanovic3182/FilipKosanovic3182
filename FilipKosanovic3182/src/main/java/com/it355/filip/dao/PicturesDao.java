@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface PicturesDao {
     public int getCount();
-    public List<Pictures> getPicturesByID(int id);
+    public Pictures getPicturesByID(int id);
     public List<Pictures> getAllPictures();
     public boolean addPicture(Pictures picture);
     public boolean removePicture(int pictureID);

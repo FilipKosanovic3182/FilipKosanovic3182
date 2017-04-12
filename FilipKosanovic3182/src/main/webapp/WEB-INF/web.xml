@@ -6,50 +6,62 @@ and open the template in the editor.
 -->
 
 <web-app id="WebApp_ID" version="2.4" 
-        xmlns="http://java.sun.com/xml/ns/j2ee" 
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+         xmlns="http://java.sun.com/xml/ns/j2ee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-        <display-name>Spring MVC Application</display-name>
-        <servlet> 
-            <servlet-name>FilipKosanovic</servlet-name> 
-            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
-            <load-on-startup>1</load-on-startup> 
-        </servlet>
-        <servlet-mapping> 
-            <servlet-name>FilipKosanovic</servlet-name> 
-            <url-pattern>/</url-pattern> 
-        </servlet-mapping>
+    <display-name>Spring MVC Application</display-name>
         
-        <listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-        <context-param> 
-            <param-name>contextConfigLocation</param-name> 
-            <param-value>classpath:/META-INF/context.xml</param-value> 
-        </context-param>
+    <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/root-context.xml</param-value>
+    </context-param>
+	
         
-        <context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring-security.xml,
-			/WEB-INF/spring-database.xml
-		</param-value>
-	</context-param>
+    <servlet> 
+        <servlet-name>FilipKosanovic</servlet-name> 
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/FilipKosanovic-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup> 
+    </servlet>
+    <servlet-mapping> 
+        <servlet-name>FilipKosanovic</servlet-name> 
+        <url-pattern>/</url-pattern> 
+    </servlet-mapping>
+        
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-<!-- Spring Security -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
+    <context-param> 
+        <param-name>contextConfigLocation</param-name> 
+        <param-value>classpath:/META-INF/context.xml</param-value> 
+    </context-param>
+        
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/spring-security.xml,
+            /WEB-INF/spring-database.xml
+        </param-value>
+    </context-param>
 
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-        <welcome-file-list>
-            <welcome-file>/</welcome-file>
-        </welcome-file-list>
+    <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <welcome-file-list>
+        <welcome-file>/</welcome-file>
+    </welcome-file-list>
         
 </web-app>

@@ -6,23 +6,35 @@
 package com.it355.filip.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Filip Wolve
  */
-@SuppressWarnings("serial") 
-public class Strap implements Serializable{
+@Entity
+@Table(name="strap")
+@SuppressWarnings("serial")
+public class Strap implements Serializable {
+
+    @Id
+    @Column(name = "brand_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private int strapID;
     private String name;
     private String description;
     private String picture;
-    
-    
+
     public String getPicture() {
         return picture;
     }
-    
+
     public int getStrapID() {
         return strapID;
     }
@@ -46,7 +58,7 @@ public class Strap implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public void setPicture(String picture) {
         this.picture = picture;
     }
@@ -56,7 +68,4 @@ public class Strap implements Serializable{
         return "Strap{" + "strapID=" + strapID + ", name=" + name + ", description=" + description + ", picture=" + picture + '}';
     }
 
-    
-    
-    
 }

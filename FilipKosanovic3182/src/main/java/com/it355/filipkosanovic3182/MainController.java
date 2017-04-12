@@ -12,8 +12,15 @@ import com.it355.filip.dao.StrapDao;
 import com.it355.filip.dao.UsersDao;
 import com.it355.filip.dao.WatchDao;
 import com.it355.filip.model.*;
+import com.it355.filip.service.BrandService;
+import com.it355.filip.service.DisplayService;
+import com.it355.filip.service.PicturesService;
+import com.it355.filip.service.StrapService;
+import com.it355.filip.service.UsersService;
+import com.it355.filip.service.WatchService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,7 +40,40 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @Autowired
+    private BrandService brandService;
+    private DisplayService displayService;
+    private PicturesService picturesService;
+    private StrapService strapService;
+    private UsersService usersService;
+    private WatchService watchService;
+
+    @Autowired(required = true)
+    @Qualifier(value = "brandService")
+    public void setBrandService(BrandService bs) {
+        this.brandService = bs;
+    }
+    @Qualifier(value = "displayService")
+    public void setDisplayService(DisplayService ds) {
+        this.displayService = ds;
+    }
+    @Qualifier(value = "picturesService")
+    public void setPicturesService(PicturesService ps) {
+        this.picturesService = ps;
+    }
+    @Qualifier(value = "strapService")
+    public void setStrapService(StrapService ss) {
+        this.strapService = ss;
+    }
+    @Qualifier(value = "usersService")
+    public void setUsersService(UsersService us) {
+        this.usersService = us;
+    }
+    @Qualifier(value = "watchService")
+    public void setWatchService(WatchService ws) {
+        this.watchService = ws;
+    }
+
+    /*@Autowired
     private BrandDao brandDao;
 
     @Autowired
@@ -49,7 +89,7 @@ public class MainController {
     private UsersDao usersDao;
 
     @Autowired
-    private WatchDao watchDao;
+    private WatchDao watchDao;*/
 
     /*@RequestMapping( value ="/dodajRezervaciju", method = RequestMethod.GET)
     public ModelAndView formRezervacijaAdd(ModelAndView model){
@@ -58,10 +98,8 @@ public class MainController {
         return model;
         //return new ModelAndView("form_dodavanje_soba", "command", new Soba());
     }*/
-    
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
-        //System.out.println("JEDI GOVNAA!");
         ModelAndView model = new ModelAndView();
         //model.addObject("stranica", "index.jsp");
         model.addObject("message", "Ovo je strana kojoj svi mogu da pristupe!");
@@ -102,33 +140,30 @@ public class MainController {
         model.setViewName("403");
         return model;
     }
-    
-    @RequestMapping(value = "/criterium/{kriterijum}", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/criterium/{kriterijum}", method = RequestMethod.GET)
     public ModelAndView pretraziPo(@PathVariable String kriterijum) {
         ModelAndView model = new ModelAndView();
         System.out.println(kriterijum + "KED DADSA");
-        if(kriterijum.equals("brendovi")){
-            List<Brand> brendovi = brandDao.getAllBrands();
+        if (kriterijum.equals("brendovi")) {
+            List<Brand> brendovi = this.brandService.getAllBrands();
+            System.out.println(brendovi);
             model.addObject("objekti", brendovi);
             model.setViewName("prikazPoPotraznji");
             System.out.println("DAA");
-        }
-        else if(kriterijum.equals("narukvice")){
-            List<Strap> narukvice = strapDao.getAllStraps();
+        } else if (kriterijum.equals("narukvice")) {
+            List<Strap> narukvice = this.strapService.getAllStraps();
             model.addObject("objekti", narukvice);
             model.setViewName("prikazPoPotraznji");
-        }
-        else if(kriterijum.equals("staklo")){
-            List<Display> stakla = displayDao.getAllDisplays();
+        } else if (kriterijum.equals("staklo")) {
+            List<Display> stakla = this.displayService.getAllDisplays();
             model.addObject("objekti", stakla);
             model.setViewName("prikazPoPotraznji");
-        }
-        else if(kriterijum.equals("akcija")){
-            List<Watch> satovi = watchDao.getWatchesOnOffer();
+        } else if (kriterijum.equals("akcija")) {
+            List<Watch> satovi = this.watchService.getWatchesOnOffer();
             model.addObject("objekti", satovi);
             model.setViewName("prikazPoPotraznji");
-        }
-        else{
+        } else {
             model.setViewName("403");
         }
         return model;
